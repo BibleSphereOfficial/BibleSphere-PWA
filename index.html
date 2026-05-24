@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=5">
+
+<title>BibleSphere</title>
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#b08d57">
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Montserrat',sans-serif;
+background:#f4f1ea;
+margin:0;
+padding:20px;
+color:#1c2a4a;
+}
+
+/* SPLASH */
+
+#splash{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#f4f6fb,#e9eef7);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.logo{
+width:170px;
+border-radius:30px;
+animation:float 3s ease-in-out infinite;
+box-shadow:0 20px 50px rgba(0,0,0,0.25);
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-12px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+.splash-title{
+margin-top:20px;
+font-size:40px;
+font-family:'Merriweather',serif;
+color:#2c3e50;
+font-weight:bold;
+}
+
+/* HOMEPAGE */
+
+#homepage{
+display:none;
+max-width:1250px;
+margin:auto;
+}
+
+/* HERO */
+
+.hero{
+background:linear-gradient(135deg,#ffffff,#f8f5ef);
+padding:30px;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+margin-bottom:25px;
+text-align:center;
+}
+
+.hero h1{
+font-family:'Merriweather',serif;
+color:#b08d57;
+font-size:48px;
+margin:0 0 12px 0;
+}
+
+.description{
+font-size:18px;
+line-height:1.8;
+color:#555;
+max-width:900px;
+margin:auto;
+}
+
+/* VERSE CARD */
+
+.versecard{
+background:white;
+padding:22px;
+border-radius:18px;
+box-shadow:0 6px 16px rgba(0,0,0,0.10);
+margin-bottom:28px;
+}
+
+.verse-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:12px;
+}
+
+.verse-title{
+font-weight:700;
+font-size:20px;
+}
+
+.event-badge{
+background:#fff2cc;
+color:#8a6d3b;
+padding:8px 14px;
+border-radius:20px;
+font-size:14px;
+font-weight:bold;
+}
+
+.verse-text{
+font-family:'Merriweather',serif;
+font-size:24px;
+line-height:1.8;
+color:#2c3e50;
+}
+
+.verse-ref{
+margin-top:14px;
+font-weight:bold;
+font-size:18px;
+color:#b08d57;
+}
+
+/* SECTION INTRO */
+
+.section-heading{
+font-size:28px;
+font-weight:700;
+margin-bottom:18px;
+color:#2c3e50;
+}
+
+/* DASHBOARD */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+}
+
+/* CARD */
+
+.cardbtn{
+background:white;
+border-radius:18px;
+padding:24px;
+text-decoration:none;
+color:#1c2a4a;
+box-shadow:0 6px 14px rgba(0,0,0,0.10);
+transition:0.3s;
+position:relative;
+overflow:hidden;
+}
+
+.cardbtn:hover{
+transform:translateY(-6px);
+box-shadow:0 14px 24px rgba(0,0,0,0.16);
+}
+
+.cardbtn::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:5px;
+background:#b08d57;
+}
+
+.icon{
+font-size:38px;
+margin-bottom:14px;
+}
+
+.title{
+font-size:22px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.card-desc{
+font-size:15px;
+line-height:1.7;
+color:#555;
+}
+
+.donate{
+background:#fff7dc;
+}
+
+/* CREATOR */
+
+.creator{
+margin-top:35px;
+font-size:17px;
+text-align:center;
+color:#444;
+line-height:1.8;
+}
+
+.creator strong{
+font-size:20px;
+color:#2c3e50;
+}
+
+/* OFFLINE */
+
+.offline-status{
+display:none;
+margin-top:12px;
+font-size:14px;
+color:#d32f2f;
+font-weight:bold;
+text-align:center;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:38px;
+}
+
+.verse-text{
+font-size:20px;
+}
+
+}
+
+@media(max-width:600px){
+
+body{
+padding:12px;
+}
+
+.hero{
+padding:24px;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+.description{
+font-size:16px;
+}
+
+.cardbtn{
+padding:20px;
+}
+
+.title{
+font-size:20px;
+}
+
+.verse-text{
+font-size:18px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SPLASH -->
+
+<div id="splash">
+
+<img class="logo"
+src="https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/assets/logo.webp">
+
+<div class="splash-title">
+
+BibleSphere
+
+</div>
+
+</div>
+
+<!-- HOMEPAGE -->
+
+<div id="homepage">
+
+<!-- HERO -->
+
+<div class="hero">
+
+<h1>BibleSphere</h1>
+
+<div class="description">
+
+Explore Scripture deeply through Bible reading, Strong's Lexicon, Nave’s topical studies, Easton’s Bible encyclopedia, and spiritually uplifting daily devotionals — all beautifully designed into one unified Christian study platform.
+
+</div>
+
+</div>
+
+<!-- VERSE OF THE DAY -->
+
+<div class="versecard">
+
+<div class="verse-top">
+
+<div class="verse-title">
+
+📖 Verse of the Day
+
+</div>
+
+<div id="eventBadge"
+class="event-badge"
+style="display:none;">
+
+</div>
+
+</div>
+
+<div id="dailyVerse"
+class="verse-text">
+
+Loading verse...
+
+</div>
+
+<div id="dailyRef"
+class="verse-ref">
+
+</div>
+
+</div>
+
+<!-- SECTION HEADING -->
+
+<div class="section-heading">
+
+Explore BibleSphere
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div class="grid">
+
+<!-- BIBLE -->
+
+<a class="cardbtn"
+href="sections/bible.html">
+
+<div class="icon">📖</div>
+
+<div class="title">
+
+Bible
+
+</div>
+
+<div class="card-desc">
+
+Read Scripture chapter-by-chapter with multiple Bible versions and clean distraction-free reading.
+
+</div>
+
+</a>
+
+<!-- STRONG -->
+
+<a class="cardbtn"
+href="sections/stronglexicon.html">
+
+<div class="icon">🔍</div>
+
+<div class="title">
+
+Strong's Lexicon
+
+</div>
+
+<div class="card-desc">
+
+Study original Hebrew and Greek meanings with Strong’s Concordance references and lexical definitions.
+
+</div>
+
+</a>
+
+<!-- TOPICS -->
+
+<a class="cardbtn"
+href="sections/topics.html">
+
+<div class="icon">📚</div>
+
+<div class="title">
+
+Topics
+
+</div>
+
+<div class="card-desc">
+
+Explore biblical themes, doctrines, people, and spiritual subjects through Nave’s topical study system.
+
+</div>
+
+</a>
+
+<!-- ENCYCLOPEDIA -->
+
+<a class="cardbtn"
+href="sections/eastondictionary.html">
+
+<div class="icon">📘</div>
+
+<div class="title">
+
+Encyclopedia
+
+</div>
+
+<div class="card-desc">
+
+Access Easton’s Bible Encyclopedia to understand places, names, historical context, and biblical events.
+
+</div>
+
+</a>
+
+<!-- DAILY -->
+
+<a class="cardbtn"
+href="sections/dailyblessing.html">
+
+<div class="icon">✨</div>
+
+<div class="title">
+
+Daily Blessing
+
+</div>
+
+<div class="card-desc">
+
+Receive liturgical daily verses, Christian seasonal devotionals, and interactive Bible quizzes every day.
+
+</div>
+
+</a>
+
+<!-- DONATE -->
+
+<a class="cardbtn donate"
+href="sections/donate.html">
+
+<div class="icon">☕</div>
+
+<div class="title">
+
+Support BibleSphere
+
+</div>
+
+<div class="card-desc">
+
+Help BibleSphere remain free, ad-light, and accessible to believers and Bible students around the world.
+
+</div>
+
+</a>
+
+</div>
+
+<!-- OFFLINE -->
+
+<div id="offlineStatus"
+class="offline-status">
+
+Offline mode enabled
+
+</div>
+
+<!-- CREATOR -->
+
+<div class="creator">
+
+Created with dedication by<br>
+
+<strong>Tonal Abraham Thomas</strong>
+
+</div>
+
+</div>
+
+<!-- LITURGICAL ENGINE -->
+
+<script src="js/liturgical_calendar.js"></script>
+
+<script>
+
+const _0x26e8fe=_0x5e1c;(function(_0x51376d,_0x32cc6b){const _0x354777=_0x5e1c,_0x3a0fc9=_0x51376d();while(!![]){try{const _0x2a0070=parseInt(_0x354777(0xa1))/0x1*(parseInt(_0x354777(0xca))/0x2)+parseInt(_0x354777(0xa0))/0x3*(-parseInt(_0x354777(0xa9))/0x4)+parseInt(_0x354777(0xb4))/0x5*(parseInt(_0x354777(0xc8))/0x6)+-parseInt(_0x354777(0xb5))/0x7*(-parseInt(_0x354777(0xa2))/0x8)+-parseInt(_0x354777(0xb0))/0x9*(-parseInt(_0x354777(0xab))/0xa)+parseInt(_0x354777(0xa4))/0xb*(-parseInt(_0x354777(0x9b))/0xc)+-parseInt(_0x354777(0xb9))/0xd*(-parseInt(_0x354777(0xcb))/0xe);if(_0x2a0070===_0x32cc6b)break;else _0x3a0fc9['push'](_0x3a0fc9['shift']());}catch(_0x1a3ccf){_0x3a0fc9['push'](_0x3a0fc9['shift']());}}}(_0x137d,0x1d637),setTimeout(function(){const _0x5eff8f=_0x5e1c;document['getElementById'](_0x5eff8f(0xc1))[_0x5eff8f(0xa7)][_0x5eff8f(0xc2)]=_0x5eff8f(0x9e),document['getElementById']('homepage')[_0x5eff8f(0xa7)][_0x5eff8f(0xc2)]='block';},0x9c4));function getDayOfYear(){const _0x534bce=_0x5e1c,_0x2b77cf=new Date(),_0x14959f=new Date(_0x2b77cf[_0x534bce(0xbd)](),0x0,0x0),_0x40df19=_0x2b77cf-_0x14959f,_0x3c7f1f=0x3e8*0x3c*0x3c*0x18;return Math[_0x534bce(0xa8)](_0x40df19/_0x3c7f1f);}function _0x5e1c(_0x192a8d,_0x2d1212){_0x192a8d=_0x192a8d-0x9b;const _0x137d84=_0x137d();let _0x5e1cd7=_0x137d84[_0x192a8d];return _0x5e1cd7;}function isLeapYear(_0x366f69){return _0x366f69%0x4===0x0&&_0x366f69%0x64!==0x0||_0x366f69%0x190===0x0;}async function loadVerse(){const _0x589c12=_0x5e1c;try{const _0x4d3c7d=await fetch(_0x589c12(0xc9)+new Date()[_0x589c12(0xc0)]()),_0x3875f9=await _0x4d3c7d[_0x589c12(0xc7)](),_0xd5f13f=getLiturgicalInfo(),_0xbeb352=_0xd5f13f[_0x589c12(0xba)],_0x340d1e=_0xd5f13f['event'],_0x26932c=document[_0x589c12(0xbc)](_0x589c12(0xc3));_0x26932c['style']['display']=_0x589c12(0xbe),_0x26932c['innerText']=_0x589c12(0x9f)+_0x340d1e;let _0x132afd=_0x3875f9[_0xbeb352];!_0x132afd&&(_0x132afd=_0x3875f9[_0x589c12(0xc4)]);const _0x52134a=new Date();isLeapYear(_0x52134a[_0x589c12(0xbd)]())&&_0x52134a[_0x589c12(0xaf)]()===0x1&&_0x52134a[_0x589c12(0xbb)]()===0x1d&&(_0x132afd=_0x3875f9[_0x589c12(0xa3)]);const _0xdd2c3=getDayOfYear(),_0x5ea63=_0x132afd[(_0xdd2c3-0x1)%_0x132afd[_0x589c12(0xb6)]];document['getElementById'](_0x589c12(0xbf))[_0x589c12(0xaa)]=_0x5ea63[_0x589c12(0xb8)],document['getElementById']('dailyRef')[_0x589c12(0xaa)]=_0x5ea63[_0x589c12(0xc5)];}catch(_0x100561){document[_0x589c12(0xbc)](_0x589c12(0xbf))['innerText']='Unable\x20to\x20load\x20verse.';}}loadVerse();function updateOfflineStatus(){const _0x839558=_0x5e1c,_0x40026c=document[_0x839558(0xbc)](_0x839558(0xa5));!navigator['onLine']?_0x40026c[_0x839558(0xa7)][_0x839558(0xc2)]=_0x839558(0xae):_0x40026c[_0x839558(0xa7)][_0x839558(0xc2)]=_0x839558(0x9e);}window[_0x26e8fe(0x9d)]('online',updateOfflineStatus),window[_0x26e8fe(0x9d)]('offline',updateOfflineStatus),updateOfflineStatus();function _0x137d(){const _0x72ebc4=['offlineStatus','register','style','floor','271596zKJDne','innerText','10HGuGRS','Service\x20Worker\x20Registered','catch','block','getMonth','1700199aIuGtk','load','Service\x20Worker\x20Registration\x20Failed','log','62120jzhPhV','28686TrsSbn','length','then','verse','447798czOyWM','season','getDate','getElementById','getFullYear','inline-block','dailyVerse','getTime','splash','display','eventBadge','ordinary','reference','serviceWorker','json','84eSGLoX','https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/daily/daily_verses.json?t=','2YVuGiq','28cxakCh','108ALyXck','service-worker.js','addEventListener','none','✝️\x20','9llXpXf','38490yVTNGj','56hBgnES','leapyear','213697yhnsBS'];_0x137d=function(){return _0x72ebc4;};return _0x137d();}_0x26e8fe(0xc6)in navigator&&window[_0x26e8fe(0x9d)](_0x26e8fe(0xb1),()=>{const _0x166474=_0x26e8fe;navigator['serviceWorker'][_0x166474(0xa6)](_0x166474(0x9c))[_0x166474(0xb7)](()=>{const _0x301272=_0x166474;console[_0x301272(0xb3)](_0x301272(0xac));})[_0x166474(0xad)](_0x14748c=>{const _0x4bd6c1=_0x166474;console[_0x4bd6c1(0xb3)](_0x4bd6c1(0xb2),_0x14748c);});});
+</script>
+
+</body>
+</html>

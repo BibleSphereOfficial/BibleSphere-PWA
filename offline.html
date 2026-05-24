@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=5">
+
+<title>Offline - BibleSphere</title>
+
+<meta name="theme-color"
+content="#b08d57">
+
+<style>
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+margin:0;
+padding:20px;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#f4f1ea,#eef2ff);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+color:#2c3e50;
+}
+
+/* CARD */
+
+.container{
+background:white;
+padding:35px;
+border-radius:22px;
+box-shadow:0 10px 28px rgba(0,0,0,0.12);
+max-width:520px;
+width:100%;
+text-align:center;
+animation:fadeIn 0.5s ease;
+}
+
+/* FADE */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(12px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* LOGO */
+
+.logo{
+width:120px;
+border-radius:24px;
+margin-bottom:20px;
+box-shadow:0 8px 22px rgba(0,0,0,0.15);
+}
+
+/* TITLE */
+
+h1{
+margin:0 0 18px 0;
+font-size:34px;
+color:#b08d57;
+font-family:Georgia,serif;
+}
+
+/* TEXT */
+
+p{
+font-size:17px;
+line-height:1.8;
+color:#555;
+margin-bottom:18px;
+}
+
+/* STATUS */
+
+.status{
+display:inline-block;
+background:#fff2cc;
+color:#8a6d3b;
+padding:10px 16px;
+border-radius:20px;
+font-size:14px;
+font-weight:bold;
+margin-bottom:22px;
+}
+
+/* BUTTONS */
+
+.btn{
+display:inline-block;
+margin-top:10px;
+padding:14px 22px;
+background:#b08d57;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+border:none;
+border-radius:12px;
+cursor:pointer;
+transition:0.25s;
+box-shadow:0 4px 10px rgba(0,0,0,0.12);
+}
+
+.btn:hover{
+background:#9a7847;
+transform:translateY(-2px);
+}
+
+/* SMALL TEXT */
+
+.small{
+margin-top:24px;
+font-size:14px;
+color:#777;
+line-height:1.7;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+body{
+padding:14px;
+}
+
+.container{
+padding:26px;
+}
+
+h1{
+font-size:28px;
+}
+
+p{
+font-size:15px;
+}
+
+.logo{
+width:95px;
+}
+
+.btn{
+width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LOGO -->
+
+<img class="logo"
+src="https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/assets/logo.webp"
+alt="BibleSphere Logo">
+
+<!-- STATUS -->
+
+<div class="status">
+
+📡 Offline Mode Active
+
+</div>
+
+<!-- TITLE -->
+
+<h1>
+
+BibleSphere Offline
+
+</h1>
+
+<!-- DESCRIPTION -->
+
+<p>
+
+You are currently offline or experiencing network issues.
+
+</p>
+
+<p>
+
+Previously visited BibleSphere pages may still work through offline cache support.
+
+</p>
+
+<p>
+
+Reconnect to the internet to access the latest Bible content, daily blessings, and updates.
+
+</p>
+
+<!-- RETRY BUTTON -->
+
+<button class="btn"
+onclick="retryConnection()">
+
+Retry Connection
+
+</button>
+
+<!-- SMALL TEXT -->
+
+<div class="small">
+
+BibleSphere PWA keeps important pages cached for offline reading and spiritual study.
+
+</div>
+
+</div>
+
+<script>
+
+/* RETRY */
+
+function retryConnection(){
+
+window.location.reload();
+
+}
+
+/* AUTO REDIRECT WHEN BACK ONLINE */
+
+window.addEventListener("online",()=>{
+
+window.location.href = "./index.html";
+
+});
+
+/* CONNECTION STATUS */
+
+window.addEventListener("offline",()=>{
+
+console.log(
+"BibleSphere Offline Mode"
+);
+
+});
+
+</script>
+
+</body>
+
+</html>
