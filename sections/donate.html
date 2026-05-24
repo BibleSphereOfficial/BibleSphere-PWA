@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=5">
+
+<title>Support BibleSphere</title>
+
+<link rel="manifest" href="../manifest.json">
+
+<meta name="theme-color" content="#b08d57">
+
+<style>
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#f4f6fb,#eef2ff);
+margin:0;
+padding:20px;
+color:#2c3e50;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:18px;
+box-shadow:0 8px 25px rgba(0,0,0,0.12);
+max-width:520px;
+margin:auto;
+animation:fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* HEADER */
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.homebtn{
+text-decoration:none;
+background:#b08d57;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+font-size:15px;
+font-weight:bold;
+box-shadow:0 3px 8px rgba(0,0,0,0.15);
+transition:0.2s;
+}
+
+.homebtn:hover{
+background:#9a7847;
+}
+
+h2{
+margin:0;
+font-size:34px;
+flex:1;
+text-align:center;
+color:#2c3e50;
+}
+
+/* TEXT */
+
+p{
+color:#555;
+font-size:16px;
+line-height:1.8;
+}
+
+/* BUTTONS */
+
+.btn{
+display:block;
+width:100%;
+margin-top:15px;
+padding:16px;
+font-size:16px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+transition:0.25s;
+font-weight:bold;
+}
+
+/* PAYPAL */
+
+.paypal{
+background:#0070ba;
+color:white;
+}
+
+.paypal:hover{
+background:#005c9c;
+transform:translateY(-2px);
+}
+
+/* BUY ME A COFFEE */
+
+.coffee{
+background:#ffdd00;
+color:black;
+}
+
+.coffee:hover{
+background:#f4cf00;
+transform:translateY(-2px);
+}
+
+/* GPAY */
+
+.gpay{
+background:#34a853;
+color:white;
+}
+
+.gpay:hover{
+background:#2c8f46;
+transform:translateY(-2px);
+}
+
+/* COPY */
+
+.copy{
+background:#4285f4;
+color:white;
+}
+
+.copy:hover{
+background:#2f6bd8;
+transform:translateY(-2px);
+}
+
+/* QR */
+
+.qrbox{
+margin-top:28px;
+}
+
+.qrbox img{
+width:220px;
+max-width:100%;
+border-radius:14px;
+box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.qrtext{
+margin-top:10px;
+color:#666;
+font-size:15px;
+}
+
+/* FOOTER */
+
+.footer{
+margin-top:24px;
+font-size:14px;
+color:#888;
+line-height:1.6;
+}
+
+/* OFFLINE */
+
+.offline-status{
+display:none;
+margin-top:14px;
+font-size:14px;
+color:#d32f2f;
+font-weight:bold;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+body{
+padding:12px;
+}
+
+.container{
+padding:22px;
+}
+
+h2{
+font-size:28px;
+}
+
+.btn{
+font-size:15px;
+padding:14px;
+}
+
+p{
+font-size:15px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="topbar">
+
+<a href="../index.html"
+class="homebtn">
+
+🏠 Home
+
+</a>
+
+<h2>Support BibleSphere ❤️</h2>
+
+</div>
+
+<p>
+BibleSphere is a free Bible study platform created to help people explore Scripture deeply without ads or distractions.
+</p>
+
+<p>
+If this app blesses you, consider supporting the mission so it can continue growing and remain free for everyone.
+</p>
+
+<!-- PAYPAL -->
+
+<button class="btn paypal"
+onclick="window.open('https://paypal.me/TonalThomasIN?locale.x=en_GB&country.x=IN','_blank')">
+
+Donate with PayPal
+
+</button>
+
+<!-- BUY ME A COFFEE -->
+
+<button class="btn coffee"
+onclick="window.open('https://buymeacoffee.com/biblesphere','_blank')">
+
+Support via Buy Me a Coffee ☕
+
+</button>
+
+<!-- GPAY BELOW COFFEE -->
+
+<button class="btn gpay"
+onclick="window.location.href='upi://pay?pa=tutorialsthomasnsp@okaxis&pn=BibleSphere&cu=INR'">
+
+Donate with UPI / GPay
+
+</button>
+
+<!-- COPY UPI -->
+
+<button class="btn copy"
+onclick="copyUPI()">
+
+Copy UPI ID
+
+</button>
+
+<!-- QR -->
+
+<div class="qrbox">
+
+<h3>Scan to Donate</h3>
+
+<img
+src="https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/assets/gpay_qr.png"
+alt="BibleSphere Donation QR">
+
+<p class="qrtext">
+
+Scan using GPay / PhonePe / Paytm
+
+</p>
+
+</div>
+
+<!-- OFFLINE -->
+
+<div id="offlineStatus"
+class="offline-status">
+
+Offline mode enabled
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+Thank you for helping BibleSphere reach more people.<br>
+
+May God bless you abundantly ✨
+
+</div>
+
+</div>
+
+<script>
+
+const _0xff77af=_0x4a56;function _0x3f87(){const _0x27780f=['391338vVEEPr','3891490iTcviH','load','../service-worker.js','onLine','then','UPI\x20ID\x20copied\x20successfully!','6029343zEjnLW','1834TqWgcz','Service\x20Worker\x20Registration\x20Failed','4nfgqCS','17288xunHpc','18HFOLHi','serviceWorker','Service\x20Worker\x20Registered','232860QHUToB','offline','catch','addEventListener','style','display','block','log','119240orAIoO','690658yNSsQK','none'];_0x3f87=function(){return _0x27780f;};return _0x3f87();}(function(_0x4d747a,_0x2d51d3){const _0x4849fb=_0x4a56,_0x2a2376=_0x4d747a();while(!![]){try{const _0x119e8d=parseInt(_0x4849fb(0x10b))/0x1+-parseInt(_0x4849fb(0xff))/0x2*(parseInt(_0x4849fb(0x102))/0x3)+-parseInt(_0x4849fb(0x117))/0x4*(-parseInt(_0x4849fb(0x10a))/0x5)+parseInt(_0x4849fb(0x10d))/0x6+parseInt(_0x4849fb(0x115))/0x7*(parseInt(_0x4849fb(0xfe))/0x8)+-parseInt(_0x4849fb(0x114))/0x9+parseInt(_0x4849fb(0x10e))/0xa;if(_0x119e8d===_0x2d51d3)break;else _0x2a2376['push'](_0x2a2376['shift']());}catch(_0x5ee301){_0x2a2376['push'](_0x2a2376['shift']());}}}(_0x3f87,0x597d9));function copyUPI(){const _0x292d87=_0x4a56;navigator['clipboard']['writeText']('tutorialsthomasnsp@okaxis')['then'](()=>{const _0x753443=_0x4a56;alert(_0x753443(0x113));})[_0x292d87(0x104)](()=>{alert('Unable\x20to\x20copy\x20UPI\x20ID.');});}function updateOfflineStatus(){const _0x276b72=_0x4a56,_0x18a204=document['getElementById']('offlineStatus');!navigator[_0x276b72(0x111)]?_0x18a204[_0x276b72(0x106)][_0x276b72(0x107)]=_0x276b72(0x108):_0x18a204[_0x276b72(0x106)]['display']=_0x276b72(0x10c);}window[_0xff77af(0x105)]('online',updateOfflineStatus),window[_0xff77af(0x105)](_0xff77af(0x103),updateOfflineStatus),updateOfflineStatus();function _0x4a56(_0x108f09,_0x4132dd){_0x108f09=_0x108f09-0xfe;const _0x3f87d5=_0x3f87();let _0x4a56a6=_0x3f87d5[_0x108f09];return _0x4a56a6;}_0xff77af(0x100)in navigator&&window[_0xff77af(0x105)](_0xff77af(0x10f),()=>{const _0xf02b83=_0xff77af;navigator[_0xf02b83(0x100)]['register'](_0xf02b83(0x110))[_0xf02b83(0x112)](()=>{const _0x11eff4=_0xf02b83;console[_0x11eff4(0x109)](_0x11eff4(0x101));})[_0xf02b83(0x104)](_0x3ffe9b=>{const _0x4e3d85=_0xf02b83;console[_0x4e3d85(0x109)](_0x4e3d85(0x116),_0x3ffe9b);});});
+</script>
+
+</body>
+</html>

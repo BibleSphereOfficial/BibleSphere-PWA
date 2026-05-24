@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=5">
+
+<title>Bible Encyclopedia (Easton’s) - BibleSphere</title>
+
+<link rel="manifest" href="../manifest.json">
+
+<meta name="theme-color" content="#b08d57">
+
+<style>
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f6fb;
+margin:0;
+padding:15px;
+color:#2c3e50;
+}
+
+/* HEADER */
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:18px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.homebtn{
+text-decoration:none;
+background:#b08d57;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+font-size:15px;
+font-weight:bold;
+box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+h2{
+margin:0;
+font-size:38px;
+text-align:center;
+flex:1;
+font-weight:700;
+}
+
+/* SEARCH AREA */
+
+.search-area{
+position:sticky;
+top:0;
+z-index:50;
+background:#f4f6fb;
+padding-bottom:10px;
+}
+
+/* SEARCH */
+
+.search-container{
+background:white;
+padding:12px;
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+margin-bottom:12px;
+}
+
+#searchBox{
+width:100%;
+padding:14px;
+font-size:17px;
+border-radius:10px;
+border:1px solid #ccc;
+outline:none;
+}
+
+#searchBox:focus{
+border-color:#3498db;
+box-shadow:0 0 5px rgba(52,152,219,0.4);
+}
+
+/* ALPHABET */
+
+.alphabet-bar{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+justify-content:center;
+margin-bottom:15px;
+}
+
+.alpha-btn{
+background:#e3e8ff;
+padding:7px 10px;
+border-radius:7px;
+cursor:pointer;
+font-size:14px;
+transition:0.2s;
+}
+
+.alpha-btn:hover{
+background:#cfd7ff;
+}
+
+/* STATUS */
+
+#status{
+font-size:15px;
+color:#666;
+margin-bottom:12px;
+font-weight:bold;
+}
+
+/* ENTRIES */
+
+.entry-card{
+background:white;
+padding:20px;
+border-radius:14px;
+margin-bottom:18px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+transition:0.2s;
+max-width:1100px;
+margin-left:auto;
+margin-right:auto;
+overflow-wrap:break-word;
+}
+
+.entry-card:hover{
+transform:translateY(-2px);
+box-shadow:0 4px 12px rgba(0,0,0,0.12);
+}
+
+.entry-title{
+font-size:32px;
+color:#2c3e50;
+margin-bottom:12px;
+font-weight:bold;
+line-height:1.3;
+}
+
+.entry-definition{
+font-size:19px;
+line-height:1.9;
+color:#333;
+}
+
+/* EMPTY */
+
+.no-result{
+text-align:center;
+color:#888;
+margin-top:30px;
+font-size:18px;
+}
+
+/* LOADING */
+
+.loading{
+text-align:center;
+font-size:15px;
+color:#777;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+body{
+padding:10px;
+}
+
+h2{
+font-size:30px;
+}
+
+#searchBox{
+font-size:16px;
+padding:12px;
+}
+
+.entry-card{
+padding:16px;
+}
+
+.entry-title{
+font-size:26px;
+}
+
+.entry-definition{
+font-size:16px;
+line-height:1.8;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="topbar">
+
+<a href="../index.html"
+class="homebtn">
+
+🏠 Home
+
+</a>
+
+<h2>Bible Encyclopedia (Easton’s)</h2>
+
+</div>
+
+<!-- SEARCH AREA -->
+
+<div class="search-area">
+
+<!-- SEARCH -->
+
+<div class="search-container">
+
+<input
+
+type="text"
+
+id="searchBox"
+
+placeholder="Search word (e.g., Moses, Ark, Covenant)"
+
+oninput="searchWord()"
+
+/>
+
+</div>
+
+<!-- ALPHABET -->
+
+<div class="alphabet-bar"
+id="alphabetBar">
+
+</div>
+
+</div>
+
+<!-- STATUS -->
+
+<div id="status"
+class="loading">
+
+Loading encyclopedia...
+
+</div>
+
+<!-- RESULTS -->
+
+<div id="result"></div>
+
+<script>
+
+function _0x5d8a(_0x17421c,_0x2dc2ea){_0x17421c=_0x17421c-0x1d0;const _0x447e18=_0x447e();let _0x5d8a22=_0x447e18[_0x17421c];return _0x5d8a22;}const _0x3f0b9b=_0x5d8a;(function(_0x2d04eb,_0x44dac0){const _0x279a19=_0x5d8a,_0xe1262c=_0x2d04eb();while(!![]){try{const _0x1f0a8e=parseInt(_0x279a19(0x1d9))/0x1+-parseInt(_0x279a19(0x1d6))/0x2*(-parseInt(_0x279a19(0x1f8))/0x3)+-parseInt(_0x279a19(0x1f7))/0x4+parseInt(_0x279a19(0x1e5))/0x5*(parseInt(_0x279a19(0x1e2))/0x6)+-parseInt(_0x279a19(0x1db))/0x7+parseInt(_0x279a19(0x1e8))/0x8+-parseInt(_0x279a19(0x1fa))/0x9*(parseInt(_0x279a19(0x1d5))/0xa);if(_0x1f0a8e===_0x44dac0)break;else _0xe1262c['push'](_0xe1262c['shift']());}catch(_0x44e107){_0xe1262c['push'](_0xe1262c['shift']());}}}(_0x447e,0xd3ee9));let eastonData=[];const DATA_URL=_0x3f0b9b(0x1d3);fetch(DATA_URL)[_0x3f0b9b(0x1e6)](_0x372163=>_0x372163[_0x3f0b9b(0x1ee)]())['then'](_0x26084c=>{const _0x585caa=_0x3f0b9b;eastonData=_0x26084c,document[_0x585caa(0x1ef)](_0x585caa(0x1dc))[_0x585caa(0x1d4)]=_0x585caa(0x1d0)+eastonData['length']+_0x585caa(0x1f4);})[_0x3f0b9b(0x1f0)](_0x3eb4b0=>{const _0x427969=_0x3f0b9b;document[_0x427969(0x1ef)](_0x427969(0x1dc))[_0x427969(0x1d4)]='Failed\x20to\x20load\x20encyclopedia.';});function searchWord(){const _0x10b4a6=_0x3f0b9b,_0x1ea02c=document[_0x10b4a6(0x1ef)](_0x10b4a6(0x1de))[_0x10b4a6(0x1da)]['trim']()[_0x10b4a6(0x1df)](),_0x2da4fd=document[_0x10b4a6(0x1ef)](_0x10b4a6(0x1ed));if(_0x1ea02c[_0x10b4a6(0x1e0)]<0x2){_0x2da4fd[_0x10b4a6(0x1ea)]='';return;}const _0x328c48=eastonData[_0x10b4a6(0x1e3)](_0x71abfc=>_0x71abfc[_0x10b4a6(0x1f1)][_0x10b4a6(0x1df)]()[_0x10b4a6(0x1d2)](_0x1ea02c));renderResults(_0x328c48);}function filterByLetter(_0x22fab4){const _0x34e334=_0x3f0b9b,_0x28491a=eastonData['filter'](_0x2d977d=>_0x2d977d[_0x34e334(0x1f1)][_0x34e334(0x1df)]()['startsWith'](_0x22fab4[_0x34e334(0x1df)]()));renderResults(_0x28491a);}function renderResults(_0x1db27a){const _0x64d08c=_0x3f0b9b,_0x429ea0=document[_0x64d08c(0x1ef)](_0x64d08c(0x1ed));if(_0x1db27a['length']===0x0){_0x429ea0[_0x64d08c(0x1ea)]=_0x64d08c(0x1dd);return;}_0x429ea0['innerHTML']=_0x1db27a[_0x64d08c(0x1e7)](0x0,0x14)['map'](_0xe2b4a1=>{const _0x5dd407=_0x64d08c,_0x2f9e92=_0xe2b4a1['word'][_0x5dd407(0x1f5)](/^([A-Za-z])\1+/,'$1');return _0x5dd407(0x1e1)+_0x2f9e92+_0x5dd407(0x1f6)+_0xe2b4a1[_0x5dd407(0x1d8)]+'\x0a\x0a</div>\x0a\x0a</div>\x0a\x0a';})[_0x64d08c(0x1f9)]('');}function _0x447e(){const _0x2b18ef=['result','json','getElementById','catch','word','span','split','\x20entries','replace','\x0a\x0a</div>\x0a\x0a<div\x20class=\x22entry-definition\x22>\x0a\x0a','4143600WKyNQD','2241255vOahUI','join','32553wZcocR','Encyclopedia\x20loaded:\x20','className','includes','https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/encyclopedia/easton.json','innerText','4590QOWiqg','2SeQgka','alpha-btn','definition','1081732GjHWpe','value','11310887iHdiCz','status','<div\x20class=\x27no-result\x27>No\x20results\x20found.</div>','searchBox','toLowerCase','length','\x0a\x0a<div\x20class=\x22entry-card\x22>\x0a\x0a<div\x20class=\x22entry-title\x22>\x0a\x0a','12YMqLOB','filter','alphabetBar','4064345ivUoMi','then','slice','13803696jHNejD','ABCDEFGHIJKLMNOPQRSTUVWXYZ','innerHTML','forEach','createElement'];_0x447e=function(){return _0x2b18ef;};return _0x447e();}function buildAlphabet(){const _0x3cb447=_0x3f0b9b,_0x12f64a=document[_0x3cb447(0x1ef)](_0x3cb447(0x1e4)),_0x4e4499=_0x3cb447(0x1e9)[_0x3cb447(0x1f3)]('');_0x4e4499[_0x3cb447(0x1eb)](_0x2bdaa2=>{const _0x473c79=_0x3cb447,_0x10755d=document[_0x473c79(0x1ec)](_0x473c79(0x1f2));_0x10755d[_0x473c79(0x1d1)]=_0x473c79(0x1d7),_0x10755d[_0x473c79(0x1d4)]=_0x2bdaa2,_0x10755d['onclick']=()=>filterByLetter(_0x2bdaa2),_0x12f64a['appendChild'](_0x10755d);});}buildAlphabet();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+
+<title>BibleSphere - Bible</title>
+
+<link rel="manifest" href="../manifest.json">
+
+<meta name="theme-color" content="#b08d57">
+
+<style>
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f6fb;
+margin:0;
+padding:15px;
+font-size:18px;
+color:#2c3e50;
+}
+
+/* HEADER */
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:18px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.homebtn{
+text-decoration:none;
+background:#b08d57;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+font-size:15px;
+font-weight:bold;
+box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+.homebtn:hover{
+opacity:0.9;
+}
+
+h2{
+margin:0;
+font-size:38px;
+text-align:center;
+flex:1;
+font-weight:700;
+}
+
+/* CONTROLS */
+
+.controls{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:space-between;
+background:#ffffff;
+padding:12px;
+border-radius:14px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+margin-bottom:18px;
+}
+
+.controls select{
+flex:1;
+min-width:90px;
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:16px;
+background:white;
+}
+
+/* LOADING */
+
+#loading{
+display:none;
+text-align:center;
+padding:25px;
+font-size:18px;
+color:#555;
+}
+
+/* CHAPTER */
+
+#chapterContent{
+background:white;
+padding:18px;
+border-radius:14px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+max-width:1100px;
+margin:auto;
+}
+
+/* VERSES */
+
+.verse{
+font-size:20px;
+line-height:1.9;
+margin-bottom:14px;
+padding:14px 10px;
+border-radius:10px;
+min-height:48px;
+display:flex;
+align-items:flex-start;
+gap:8px;
+transition:0.2s;
+}
+
+.verse-number{
+font-weight:bold;
+color:#2980b9;
+min-width:28px;
+}
+
+.verse:hover{
+background:#eef3ff;
+cursor:pointer;
+}
+
+/* HIGHLIGHTS */
+
+.yellow{background:#fff59d;}
+.green{background:#c8e6c9;}
+.blue{background:#bbdefb;}
+
+/* ACTION BAR */
+
+.action-bar{
+display:none;
+position:fixed;
+bottom:12px;
+left:12px;
+right:12px;
+background:#2c3e50;
+color:white;
+padding:12px;
+border-radius:14px;
+text-align:center;
+z-index:999;
+box-shadow:0 6px 16px rgba(0,0,0,0.25);
+}
+
+.action-bar button{
+margin:5px;
+padding:8px 12px;
+border:none;
+border-radius:8px;
+background:#3498db;
+color:white;
+font-size:15px;
+}
+
+/* TOAST */
+
+#toast{
+position:fixed;
+bottom:90px;
+left:50%;
+transform:translateX(-50%);
+background:#2c3e50;
+color:white;
+padding:12px 20px;
+border-radius:20px;
+display:none;
+z-index:9999;
+font-size:14px;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+body{
+padding:10px;
+font-size:16px;
+}
+
+h2{
+font-size:30px;
+}
+
+.controls{
+padding:10px;
+}
+
+.controls select{
+font-size:15px;
+padding:10px;
+}
+
+.verse{
+font-size:18px;
+line-height:1.8;
+padding:12px 8px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="topbar">
+
+<a href="../index.html" class="homebtn">🏠 Home</a>
+
+<h2>BibleSphere</h2>
+
+</div>
+
+<!-- CONTROLS -->
+
+<div class="controls">
+
+<select id="versionSelect" onchange="loadVersion()">
+<option value="AKJV">AKJV</option>
+<option value="ASV">ASV</option>
+<option value="Darby">Darby</option>
+<option value="Webster">Webster</option>
+<option value="YLT">YLT</option>
+<option value="LEB">LEB</option>
+<option value="Tyndale">Tyndale</option>
+<option value="Wycliffe">Wycliffe</option>
+<option value="KJV">KJV</option>
+</select>
+
+<select id="bookSelect"></select>
+
+<select id="chapterSelect"></select>
+
+</div>
+
+<!-- LOADING -->
+
+<div id="loading">
+Loading Bible chapter...
+</div>
+
+<!-- CHAPTER CONTENT -->
+
+<div id="chapterContent"></div>
+
+<!-- ACTION BAR -->
+
+<div class="action-bar" id="actionBar">
+
+<button onclick="copyVerse()">Copy</button>
+
+<div style="display:inline-block;">
+
+<button onclick="toggleHighlightOptions()">
+Highlight ▼
+</button>
+
+<span id="highlightOptions" style="display:none;">
+
+<button onclick="highlightVerse('yellow')">Y</button>
+
+<button onclick="highlightVerse('green')">G</button>
+
+<button onclick="highlightVerse('blue')">B</button>
+
+</span>
+
+</div>
+
+<button onclick="bookmarkVerse()">Bookmark</button>
+
+</div>
+
+<!-- TOAST -->
+
+<div id="toast"></div>
+
+<script>
+
+const _0x3dc7f7=_0x379a;(function(_0x122f80,_0x278db6){const _0x88588c=_0x379a,_0x58585d=_0x122f80();while(!![]){try{const _0x5e81fc=parseInt(_0x88588c(0x215))/0x1+parseInt(_0x88588c(0x1e2))/0x2+-parseInt(_0x88588c(0x207))/0x3*(parseInt(_0x88588c(0x20e))/0x4)+-parseInt(_0x88588c(0x21b))/0x5*(-parseInt(_0x88588c(0x234))/0x6)+parseInt(_0x88588c(0x1d9))/0x7+-parseInt(_0x88588c(0x1df))/0x8*(parseInt(_0x88588c(0x1dc))/0x9)+-parseInt(_0x88588c(0x223))/0xa;if(_0x5e81fc===_0x278db6)break;else _0x58585d['push'](_0x58585d['shift']());}catch(_0x11d0ba){_0x58585d['push'](_0x58585d['shift']());}}}(_0x2d16,0x31217));const bookMap={'GEN':_0x3dc7f7(0x1cf),'EXO':_0x3dc7f7(0x227),'LEV':'Leviticus','NUM':'Numbers','DEU':_0x3dc7f7(0x1f0),'JOS':_0x3dc7f7(0x22c),'JDG':'Judges','RUT':_0x3dc7f7(0x1e6),'1SA':'I\x20Samuel','2SA':_0x3dc7f7(0x213),'1KI':_0x3dc7f7(0x21c),'2KI':'II\x20Kings','1CH':_0x3dc7f7(0x20d),'2CH':_0x3dc7f7(0x1d1),'PSA':'Psalms','PRO':'Proverbs','ISA':_0x3dc7f7(0x21f),'JER':'Jeremiah','EZE':_0x3dc7f7(0x1d6),'DAN':_0x3dc7f7(0x235),'MAT':_0x3dc7f7(0x1cd),'MRK':_0x3dc7f7(0x1f4),'LUK':'Luke','JHN':'John','ACT':_0x3dc7f7(0x22f),'ROM':_0x3dc7f7(0x217),'1CO':_0x3dc7f7(0x1e7),'2CO':_0x3dc7f7(0x1f3),'GAL':'Galatians','EPH':_0x3dc7f7(0x22e),'PHP':'Philippians','COL':_0x3dc7f7(0x1ec),'1TH':_0x3dc7f7(0x22b),'2TH':'II\x20Thessalonians','1TI':'I\x20Timothy','2TI':_0x3dc7f7(0x1ef),'TIT':'Titus','HEB':'Hebrews','JAM':_0x3dc7f7(0x1e4),'1PE':_0x3dc7f7(0x203),'2PE':_0x3dc7f7(0x1da),'1JN':_0x3dc7f7(0x1f6),'2JN':_0x3dc7f7(0x1e9),'3JN':_0x3dc7f7(0x1d0),'REV':_0x3dc7f7(0x1d2)},baseURL=_0x3dc7f7(0x1ea);let currentData=null,selectedVerseElement=null,versionCache={};function showToast(_0x3601a5){const _0x53e160=_0x3dc7f7,_0x3b9a2c=document[_0x53e160(0x1d8)](_0x53e160(0x1fa));_0x3b9a2c[_0x53e160(0x222)]=_0x3601a5,_0x3b9a2c[_0x53e160(0x22d)][_0x53e160(0x1fe)]=_0x53e160(0x209),setTimeout(()=>{const _0x555c34=_0x53e160;_0x3b9a2c['style'][_0x555c34(0x1fe)]=_0x555c34(0x1f8);},0x7d0);}function showLoading(){const _0x5d3d90=_0x3dc7f7;document['getElementById'](_0x5d3d90(0x21d))[_0x5d3d90(0x22d)][_0x5d3d90(0x1fe)]=_0x5d3d90(0x209);}function _0x2d16(){const _0x73e9be=['loading','clipboard','Isaiah','replace','writeText','innerText','7498870XTNyJy','json','inline','center','Exodus','addEventListener','Highlighted','appendChild','I\x20Thessalonians','Joshua','style','Ephesians','Acts','.json','selectedOptions','blue','forEach','15654hQpUZL','Daniel','Matthew','actionBar','Genesis','III\x20John','II\x20Chronicles','Revelation','trim','verse','chapters','Ezekiel','textContent','getElementById','1792028JjzCBe','II\x20Peter','bibleRef','9dlSZEy','removeItem','catch','600440XjzaIz','<p>Unable\x20to\x20load\x20Bible\x20data.</p>','chapterContent','187576TIbovz','bookSelect','James','parse','Ruth','I\x20Corinthians','\x0a</span>\x0a\x0a<span\x20class=\x22bookmark-icon\x22\x0astyle=\x22display:none;\x22>\x0a🔖\x0a</span>\x0a\x0a</div>\x0a','II\x20John','https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/bible/','dataset','Colossians','name','innerHTML','II\x20Timothy','Deuteronomy','classList','contains','II\x20Corinthians','Mark','find','I\x20John','querySelector','none','add','toast','.verse-number','option','highlightOptions','display','Bookmarked','yellow','books','.bookmark-icon','I\x20Peter','remove','autoHighlighted','then','3657lOzEcE','KJV','block','\x0a\x0aShared\x20via\x20BibleSphere','Verse\x20copied!','true','I\x20Chronicles','244zTqkzZ','findIndex','value','onload','\x0a<div\x20class=\x22verse\x22\x0aonclick=\x22selectVerse(this)\x22>\x0a\x0a<span\x20class=\x22verse-number\x22>\x0a','II\x20Samuel','chapterSelect','369834VRYaDS','text','Romans','versionSelect','createElement','green','730oJQZOr','I\x20Kings'];_0x2d16=function(){return _0x73e9be;};return _0x2d16();}function hideLoading(){const _0x5c1dee=_0x3dc7f7;document['getElementById']('loading')[_0x5c1dee(0x22d)][_0x5c1dee(0x1fe)]=_0x5c1dee(0x1f8);}function _0x379a(_0x4a6cbc,_0x3e6532){_0x4a6cbc=_0x4a6cbc-0x1cd;const _0x2d1646=_0x2d16();let _0x379a54=_0x2d1646[_0x4a6cbc];return _0x379a54;}function loadVersion(){const _0x3c0918=_0x3dc7f7;showLoading();const _0x2405c2=document[_0x3c0918(0x1d8)](_0x3c0918(0x218))[_0x3c0918(0x210)],_0x1febb9=document[_0x3c0918(0x1d8)](_0x3c0918(0x1e3))[_0x3c0918(0x210)],_0x47c61c=document[_0x3c0918(0x1d8)]('chapterSelect')[_0x3c0918(0x210)];if(versionCache[_0x2405c2]){currentData=versionCache[_0x2405c2],populateBooks(_0x1febb9,_0x47c61c),hideLoading();return;}fetch(baseURL+_0x2405c2+_0x3c0918(0x230))[_0x3c0918(0x206)](_0x360b09=>_0x360b09[_0x3c0918(0x224)]())[_0x3c0918(0x206)](_0x1ba521=>{versionCache[_0x2405c2]=_0x1ba521,currentData=_0x1ba521,populateBooks(_0x1febb9,_0x47c61c),hideLoading();})[_0x3c0918(0x1de)](()=>{const _0x50bba9=_0x3c0918;hideLoading(),document[_0x50bba9(0x1d8)](_0x50bba9(0x1e1))['innerHTML']=_0x50bba9(0x1e0);});}function populateBooks(_0xaf9177=0x0,_0x3a27ce=0x0){const _0x4fe47d=_0x3dc7f7,_0x1b9ae8=document[_0x4fe47d(0x1d8)](_0x4fe47d(0x1e3));_0x1b9ae8[_0x4fe47d(0x1ee)]='',currentData[_0x4fe47d(0x201)][_0x4fe47d(0x233)]((_0x1917dd,_0x3fd98f)=>{const _0x47ed0f=_0x4fe47d;let _0x24d1bd=document[_0x47ed0f(0x219)](_0x47ed0f(0x1fc));_0x24d1bd[_0x47ed0f(0x210)]=_0x3fd98f,_0x24d1bd[_0x47ed0f(0x1d7)]=_0x1917dd['name'],_0x1b9ae8[_0x47ed0f(0x22a)](_0x24d1bd);}),_0x1b9ae8[_0x4fe47d(0x210)]=_0xaf9177||0x0,loadChapters(_0x3a27ce);}function loadChapters(_0x4d3813=0x0){const _0x25a5f7=_0x3dc7f7,_0x20baef=document[_0x25a5f7(0x1d8)]('bookSelect')['value'],_0x5bd059=document[_0x25a5f7(0x1d8)](_0x25a5f7(0x214));_0x5bd059[_0x25a5f7(0x1ee)]='';const _0x4a483a=currentData[_0x25a5f7(0x201)][_0x20baef][_0x25a5f7(0x1d5)];_0x4a483a[_0x25a5f7(0x233)]((_0x384ddc,_0x296285)=>{const _0x3e79f5=_0x25a5f7;let _0x58e7f3=document['createElement']('option');_0x58e7f3['value']=_0x296285,_0x58e7f3[_0x3e79f5(0x1d7)]=_0x384ddc['chapter'],_0x5bd059[_0x3e79f5(0x22a)](_0x58e7f3);}),_0x5bd059[_0x25a5f7(0x210)]=_0x4d3813||0x0,renderChapter();}function renderChapter(){const _0x4b1ce8=_0x3dc7f7,_0x218ec7=document[_0x4b1ce8(0x1d8)](_0x4b1ce8(0x1e3))[_0x4b1ce8(0x210)],_0x59f1c7=document['getElementById']('chapterSelect')[_0x4b1ce8(0x210)],_0x54c0c7=currentData[_0x4b1ce8(0x201)][_0x218ec7]['chapters'][_0x59f1c7]['verses'],_0x59dd50=document['getElementById'](_0x4b1ce8(0x1e1));let _0x2cf9de='';_0x54c0c7[_0x4b1ce8(0x233)](_0x153148=>{const _0x53d457=_0x4b1ce8;_0x2cf9de+=_0x53d457(0x212)+_0x153148[_0x53d457(0x1d4)]+'\x0a</span>\x0a\x0a<span>\x0a'+_0x153148[_0x53d457(0x216)]+_0x53d457(0x1e8);}),_0x59dd50['innerHTML']=_0x2cf9de,window['scrollTo']({'top':0x0,'behavior':'smooth'});}function selectVerse(_0x525a6c){const _0x4cd42c=_0x3dc7f7;if(_0x525a6c[_0x4cd42c(0x1eb)][_0x4cd42c(0x205)]===_0x4cd42c(0x20c)){_0x525a6c[_0x4cd42c(0x1f1)]['remove'](_0x4cd42c(0x200)),delete _0x525a6c[_0x4cd42c(0x1eb)][_0x4cd42c(0x205)];return;}if(selectedVerseElement===_0x525a6c){selectedVerseElement=null,document[_0x4cd42c(0x1d8)](_0x4cd42c(0x1ce))[_0x4cd42c(0x22d)][_0x4cd42c(0x1fe)]=_0x4cd42c(0x1f8);return;}selectedVerseElement=_0x525a6c,document[_0x4cd42c(0x1d8)]('actionBar')[_0x4cd42c(0x22d)][_0x4cd42c(0x1fe)]='block';}function copyVerse(){const _0x318d0d=_0x3dc7f7;if(!selectedVerseElement)return;const _0x65445e=document[_0x318d0d(0x1d8)](_0x318d0d(0x218))[_0x318d0d(0x210)],_0x4ed3b6=document[_0x318d0d(0x1d8)](_0x318d0d(0x1e3))[_0x318d0d(0x231)][0x0][_0x318d0d(0x1d7)],_0x1ccbd5=document[_0x318d0d(0x1d8)](_0x318d0d(0x214))[_0x318d0d(0x231)][0x0][_0x318d0d(0x1d7)],_0x4a32d5=selectedVerseElement['innerText'][_0x318d0d(0x220)]('🔖','')[_0x318d0d(0x1d3)](),_0x599ad6=_0x4ed3b6+'\x20'+_0x1ccbd5+'\x20('+_0x65445e+')\x0a'+_0x4a32d5+_0x318d0d(0x20a);navigator[_0x318d0d(0x21e)][_0x318d0d(0x221)](_0x599ad6),showToast(_0x318d0d(0x20b));}function highlightVerse(_0x27d7d0){const _0x4a0cf2=_0x3dc7f7;if(!selectedVerseElement)return;selectedVerseElement[_0x4a0cf2(0x1f1)][_0x4a0cf2(0x1f2)](_0x27d7d0)?(selectedVerseElement['classList'][_0x4a0cf2(0x204)](_0x27d7d0),showToast('Highlight\x20removed')):(selectedVerseElement[_0x4a0cf2(0x1f1)][_0x4a0cf2(0x204)](_0x4a0cf2(0x200),_0x4a0cf2(0x21a),_0x4a0cf2(0x232)),selectedVerseElement[_0x4a0cf2(0x1f1)][_0x4a0cf2(0x1f9)](_0x27d7d0),showToast(_0x4a0cf2(0x229)));}function toggleHighlightOptions(){const _0x31dc3b=_0x3dc7f7,_0x17917f=document['getElementById'](_0x31dc3b(0x1fd));_0x17917f[_0x31dc3b(0x22d)]['display']=_0x17917f[_0x31dc3b(0x22d)]['display']===_0x31dc3b(0x1f8)?'inline':_0x31dc3b(0x1f8);}function bookmarkVerse(){const _0x47c719=_0x3dc7f7;if(!selectedVerseElement)return;const _0x413624=selectedVerseElement['querySelector'](_0x47c719(0x202));_0x413624['style'][_0x47c719(0x1fe)]===_0x47c719(0x225)?(_0x413624[_0x47c719(0x22d)][_0x47c719(0x1fe)]=_0x47c719(0x1f8),showToast('Bookmark\x20removed')):(_0x413624[_0x47c719(0x22d)][_0x47c719(0x1fe)]=_0x47c719(0x225),showToast(_0x47c719(0x1ff)));}function handleIncomingReference(){const _0x2fd3ac=_0x3dc7f7,_0x5a42af=localStorage['getItem'](_0x2fd3ac(0x1db));if(!_0x5a42af)return;const {book:_0x2527ff,chapter:_0x26eb13,verseStart:_0x1c5ec4,verseEnd:_0x242e11}=JSON[_0x2fd3ac(0x1e5)](_0x5a42af);localStorage[_0x2fd3ac(0x1dd)]('bibleRef');const _0x501c39=bookMap[_0x2527ff]||_0x2527ff;document['getElementById']('versionSelect')[_0x2fd3ac(0x210)]=_0x2fd3ac(0x208),loadVersion(),setTimeout(()=>{const _0x5e1797=_0x2fd3ac,_0x732938=currentData[_0x5e1797(0x201)][_0x5e1797(0x20f)](_0xa9ccdc=>_0xa9ccdc[_0x5e1797(0x1ed)]===_0x501c39);if(_0x732938===-0x1)return;document[_0x5e1797(0x1d8)]('bookSelect')['value']=_0x732938,loadChapters(_0x26eb13-0x1),setTimeout(()=>{const _0xc54f5b=_0x5e1797,_0x4eb43b=document['querySelectorAll']('.verse');_0x4eb43b[_0xc54f5b(0x233)](_0x154329=>{const _0x36595e=_0xc54f5b,_0x3e6bbf=_0x154329[_0x36595e(0x1f7)](_0x36595e(0x1fb))['innerText'];_0x3e6bbf>=_0x1c5ec4&&(_0x242e11===null||_0x3e6bbf<=_0x242e11)&&(_0x154329[_0x36595e(0x1f1)][_0x36595e(0x1f9)](_0x36595e(0x200)),_0x154329[_0x36595e(0x1eb)]['autoHighlighted']='true');});const _0x4233f7=[..._0x4eb43b][_0xc54f5b(0x1f5)](_0x367493=>_0x367493[_0xc54f5b(0x1f7)](_0xc54f5b(0x1fb))[_0xc54f5b(0x222)]==_0x1c5ec4);_0x4233f7&&_0x4233f7['scrollIntoView']({'behavior':'smooth','block':_0xc54f5b(0x226)});},0x190);},0x258);}document['getElementById']('bookSelect')[_0x3dc7f7(0x228)]('change',loadChapters),document['getElementById'](_0x3dc7f7(0x214))[_0x3dc7f7(0x228)]('change',renderChapter),window[_0x3dc7f7(0x211)]=function(){loadVersion(),setTimeout(handleIncomingReference,0x320);};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <title>Daily Blessing - BibleSphere</title>
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#b08d57">
+    <style>
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f6fb;
+        margin: 0;
+        padding: 15px;
+        color: #2c3e50;
+      }
+
+      /* HEADER */
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .homebtn {
+        text-decoration: none;
+        background: #b08d57;
+        color: white;
+        padding: 10px 16px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: bold;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        transition: 0.2s;
+      }
+
+      .homebtn:hover {
+        background: #9a7847;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 38px;
+        text-align: center;
+        flex: 1;
+        font-weight: 700;
+      }
+
+      /* EVENT */
+      .event-badge {
+        display: inline-block;
+        background: #fff2cc;
+        color: #8a6d3b;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      /* CARDS */
+      .verse-card,
+      .quiz-card {
+        background: white;
+        padding: 22px;
+        border-radius: 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        margin-bottom: 20px;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* VERSE */
+      .verse-text {
+        font-size: 22px;
+        line-height: 1.9;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .verse-ref {
+        font-weight: bold;
+        color: #1565c0;
+        font-size: 18px;
+      }
+
+      /* QUIZ */
+      .quiz-question {
+        font-size: 22px;
+        margin-bottom: 18px;
+        line-height: 1.7;
+      }
+
+      .option {
+        display: block;
+        background: #e3f2fd;
+        margin: 8px 0;
+        padding: 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 18px;
+        user-select: none;
+      }
+
+      .option:hover {
+        background: #bbdefb;
+      }
+
+      .correct {
+        background: #c8e6c9 !important;
+      }
+
+      .wrong {
+        background: #ffcdd2 !important;
+      }
+
+      /* OFFLINE */
+      .offline-status {
+        display: none;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #d32f2f;
+        font-weight: bold;
+      }
+
+      /* MOBILE */
+      @media(max-width:700px) {
+        body {
+          padding: 10px;
+        }
+
+        h2 {
+          font-size: 30px;
+        }
+
+        .verse-card,
+        .quiz-card {
+          padding: 18px;
+        }
+
+        .verse-text {
+          font-size: 18px;
+          line-height: 1.8;
+        }
+
+        .quiz-question {
+          font-size: 18px;
+        }
+
+        .option {
+          font-size: 16px;
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="topbar">
+      <a href="../index.html" class="homebtn"> 🏠 Home </a>
+      <h2>Daily Blessing</h2>
+    </div>
+    <!-- VERSE CARD -->
+    <div class="verse-card">
+      <div id="eventBadge" class="event-badge" style="display:none;"></div>
+      <h3>📖 Today's Verse</h3>
+      <div id="verseText" class="verse-text"> Loading verse... </div>
+      <div id="verseRef" class="verse-ref"></div>
+      <div id="offlineStatus" class="offline-status"> Offline mode enabled </div>
+    </div>
+    <!-- QUIZ CARD -->
+    <div class="quiz-card">
+      <h3>🧠 Daily Quiz</h3>
+      <div id="quizQuestion" class="quiz-question"> Loading quiz... </div>
+      <div id="quizOptions"></div>
+    </div>
+    <!-- LITURGICAL ENGINE -->
+    <script src="../js/liturgical_calendar.js"></script>
+    <script>
+     function _0x1322(){const _0x2c7116=['673550KAHxDG','getDate','forEach','inline-block','74570tWEpRE','quizOptions','display','getFullYear','157584CdSshn','✝️\x20','getMonth','Service\x20Worker\x20Registration\x20Failed','leapyear','add','Service\x20Worker\x20Registered','register','event','cachedVerses','onclick','log','online','style','season','getElementById','appendChild','quizQuestion','../service-worker.js','serviceWorker','none','answer','load','eventBadge','then','offlineStatus','innerText','length','correct','48uWZdSC','addEventListener','stringify','div','setItem','onLine','25643544tsdRWo','48RmkbmH','offline','18qhdZLO','parse','floor','verseRef','cachedQuizzes','question','5253997uFLnsd','classList','createElement','verse','?t=','option','getTime','json','34aCYNJp','options','querySelectorAll','2445600xvuvGB','11zpMvbM','pointerEvents','verseText','innerHTML','3692680DZdPze','Unable\x20to\x20load\x20quiz.'];_0x1322=function(){return _0x2c7116;};return _0x1322();}const _0x532f54=_0x26f6;(function(_0x358c68,_0x21c3d3){const _0x3fa93f=_0x26f6,_0x5d25ee=_0x358c68();while(!![]){try{const _0xb7d18=parseInt(_0x3fa93f(0x170))/0x1*(-parseInt(_0x3fa93f(0x138))/0x2)+parseInt(_0x3fa93f(0x13c))/0x3*(parseInt(_0x3fa93f(0x160))/0x4)+parseInt(_0x3fa93f(0x134))/0x5*(-parseInt(_0x3fa93f(0x159))/0x6)+-parseInt(_0x3fa93f(0x168))/0x7+-parseInt(_0x3fa93f(0x173))/0x8*(-parseInt(_0x3fa93f(0x162))/0x9)+parseInt(_0x3fa93f(0x132))/0xa+-parseInt(_0x3fa93f(0x12e))/0xb*(-parseInt(_0x3fa93f(0x15f))/0xc);if(_0xb7d18===_0x21c3d3)break;else _0x5d25ee['push'](_0x5d25ee['shift']());}catch(_0x103c16){_0x5d25ee['push'](_0x5d25ee['shift']());}}}(_0x1322,0x9f2f9));function getDayOfYear(){const _0x20332c=_0x26f6,_0x498ba3=new Date(),_0x857606=new Date(_0x498ba3[_0x20332c(0x13b)](),0x0,0x0),_0x535dc1=_0x498ba3-_0x857606,_0x177446=0x3e8*0x3c*0x3c*0x18;return Math[_0x20332c(0x164)](_0x535dc1/_0x177446);}function isLeapYear(_0x190382){return _0x190382%0x4===0x0&&_0x190382%0x64!==0x0||_0x190382%0x190===0x0;}const VERSE_URL='https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/daily/daily_verses.json',QUIZ_URL='https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/daily/daily_quizzes.json';function updateOfflineStatus(){const _0x473562=_0x26f6,_0x4c5092=document['getElementById'](_0x473562(0x155));!navigator[_0x473562(0x15e)]?_0x4c5092['style']['display']='block':_0x4c5092[_0x473562(0x149)][_0x473562(0x13a)]=_0x473562(0x150);}function _0x26f6(_0x39433b,_0xe42c60){_0x39433b=_0x39433b-0x12e;const _0x132216=_0x1322();let _0x26f666=_0x132216[_0x39433b];return _0x26f666;}window[_0x532f54(0x15a)](_0x532f54(0x148),updateOfflineStatus),window['addEventListener'](_0x532f54(0x161),updateOfflineStatus),updateOfflineStatus();async function loadVerse(){const _0x3480b1=_0x532f54;try{const _0x24d0fc=await fetch(VERSE_URL+_0x3480b1(0x16c)+new Date()[_0x3480b1(0x16e)]()),_0x3c3e65=await _0x24d0fc[_0x3480b1(0x16f)]();localStorage[_0x3480b1(0x15d)](_0x3480b1(0x145),JSON[_0x3480b1(0x15b)](_0x3c3e65)),renderVerse(_0x3c3e65);}catch(_0x3cb211){const _0x431651=localStorage['getItem'](_0x3480b1(0x145));_0x431651?renderVerse(JSON[_0x3480b1(0x163)](_0x431651)):document['getElementById']('verseText')['innerText']='Unable\x20to\x20load\x20verse.';}}function renderVerse(_0x1b4497){const _0x3ffd0a=_0x532f54,_0x55e4db=getLiturgicalInfo(),_0x58d1c1=_0x55e4db[_0x3ffd0a(0x14a)],_0x3f9b6c=_0x55e4db[_0x3ffd0a(0x144)],_0x33d892=document[_0x3ffd0a(0x14b)](_0x3ffd0a(0x153));_0x33d892[_0x3ffd0a(0x149)][_0x3ffd0a(0x13a)]=_0x3ffd0a(0x137),_0x33d892[_0x3ffd0a(0x156)]=_0x3ffd0a(0x13d)+_0x3f9b6c;let _0x25b5f9=_0x1b4497[_0x58d1c1];!_0x25b5f9&&(_0x25b5f9=_0x1b4497['ordinary']);const _0x36f44f=new Date();isLeapYear(_0x36f44f[_0x3ffd0a(0x13b)]())&&_0x36f44f[_0x3ffd0a(0x13e)]()===0x1&&_0x36f44f[_0x3ffd0a(0x135)]()===0x1d&&(_0x25b5f9=_0x1b4497[_0x3ffd0a(0x140)]);const _0x2636e5=getDayOfYear(),_0x14b7e4=_0x25b5f9[(_0x2636e5-0x1)%_0x25b5f9[_0x3ffd0a(0x157)]];document[_0x3ffd0a(0x14b)](_0x3ffd0a(0x130))[_0x3ffd0a(0x156)]=_0x14b7e4[_0x3ffd0a(0x16b)],document['getElementById'](_0x3ffd0a(0x165))[_0x3ffd0a(0x156)]=_0x14b7e4['reference'];}async function loadQuiz(){const _0xb6e1b8=_0x532f54;try{const _0x2840fd=await fetch(QUIZ_URL+_0xb6e1b8(0x16c)+new Date()['getTime']()),_0x3e8bb4=await _0x2840fd['json']();localStorage[_0xb6e1b8(0x15d)]('cachedQuizzes',JSON[_0xb6e1b8(0x15b)](_0x3e8bb4)),renderQuiz(_0x3e8bb4);}catch(_0x16c2a9){const _0x3246f7=localStorage['getItem'](_0xb6e1b8(0x166));_0x3246f7?renderQuiz(JSON[_0xb6e1b8(0x163)](_0x3246f7)):document[_0xb6e1b8(0x14b)]('quizQuestion')[_0xb6e1b8(0x156)]=_0xb6e1b8(0x133);}}function renderQuiz(_0x2ca1e7){const _0x552035=_0x532f54,_0x253881=getDayOfYear(),_0x22d80d=_0x2ca1e7[(_0x253881-0x1)%_0x2ca1e7[_0x552035(0x157)]];document[_0x552035(0x14b)](_0x552035(0x14d))[_0x552035(0x156)]=_0x22d80d[_0x552035(0x167)];const _0x49630d=document[_0x552035(0x14b)](_0x552035(0x139));_0x49630d[_0x552035(0x131)]='',_0x22d80d[_0x552035(0x171)][_0x552035(0x136)](_0x2d9051=>{const _0x5be8c3=_0x552035,_0x1db01b=document[_0x5be8c3(0x16a)](_0x5be8c3(0x15c));_0x1db01b['className']=_0x5be8c3(0x16d),_0x1db01b[_0x5be8c3(0x156)]=_0x2d9051,_0x1db01b[_0x5be8c3(0x146)]=function(){const _0x15a2f3=_0x5be8c3,_0x3a6510=document[_0x15a2f3(0x172)]('.option');_0x3a6510[_0x15a2f3(0x136)](_0x5183f6=>{const _0x250a13=_0x15a2f3;_0x5183f6[_0x250a13(0x149)][_0x250a13(0x12f)]='none';}),_0x2d9051===_0x22d80d[_0x15a2f3(0x151)]?_0x1db01b[_0x15a2f3(0x169)][_0x15a2f3(0x141)](_0x15a2f3(0x158)):(_0x1db01b['classList'][_0x15a2f3(0x141)]('wrong'),_0x3a6510['forEach'](_0x9362d7=>{const _0x338c72=_0x15a2f3;_0x9362d7[_0x338c72(0x156)]===_0x22d80d[_0x338c72(0x151)]&&_0x9362d7[_0x338c72(0x169)][_0x338c72(0x141)](_0x338c72(0x158));}));},_0x49630d[_0x5be8c3(0x14c)](_0x1db01b);});}loadVerse(),loadQuiz(),setInterval(()=>{loadVerse(),loadQuiz();},0x36ee80);_0x532f54(0x14f)in navigator&&window[_0x532f54(0x15a)](_0x532f54(0x152),()=>{const _0x48d321=_0x532f54;navigator[_0x48d321(0x14f)][_0x48d321(0x143)](_0x48d321(0x14e))[_0x48d321(0x154)](()=>{const _0x3c54c4=_0x48d321;console[_0x3c54c4(0x147)](_0x3c54c4(0x142));})['catch'](_0x2fa11a=>{const _0x456887=_0x48d321;console['log'](_0x456887(0x13f),_0x2fa11a);});});
+    </script>
+  </body>
+</html>

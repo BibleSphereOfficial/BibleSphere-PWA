@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=5">
+
+<title>Strong's Lexicon - BibleSphere</title>
+
+<link rel="manifest" href="../manifest.json">
+
+<meta name="theme-color" content="#b08d57">
+
+<style>
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f6fb;
+padding:15px;
+margin:0;
+color:#2c3e50;
+}
+
+/* HEADER */
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:18px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.homebtn{
+text-decoration:none;
+background:#b08d57;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+font-size:15px;
+font-weight:bold;
+box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+h2{
+margin:0;
+font-size:38px;
+text-align:center;
+flex:1;
+font-weight:700;
+}
+
+/* SEARCH AREA */
+
+.search-area{
+position:sticky;
+top:0;
+z-index:50;
+background:#f4f6fb;
+padding-bottom:10px;
+}
+
+/* TOGGLE */
+
+.toggle-container{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+}
+
+.toggle-btn{
+flex:1;
+padding:12px;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+background:#e0e0e0;
+font-size:16px;
+transition:0.2s;
+}
+
+.toggle-btn.active{
+background:#3498db;
+color:white;
+}
+
+/* SEARCH */
+
+.search-box input{
+width:100%;
+padding:14px;
+font-size:16px;
+border-radius:10px;
+border:1px solid #ccc;
+margin-bottom:12px;
+box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* ALPHABET */
+
+.alphabet-bar{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+margin-bottom:15px;
+justify-content:center;
+}
+
+.alpha-btn{
+padding:7px 10px;
+border-radius:7px;
+background:#e3e8ff;
+cursor:pointer;
+font-size:13px;
+transition:0.2s;
+}
+
+.alpha-btn:hover{
+background:#cfd7ff;
+}
+
+/* STATUS */
+
+.status{
+font-weight:bold;
+margin-bottom:12px;
+color:#555;
+font-size:15px;
+}
+
+/* RESULT CARDS */
+
+.result-card{
+background:white;
+padding:18px;
+border-radius:14px;
+margin-bottom:16px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+max-width:1100px;
+margin-left:auto;
+margin-right:auto;
+overflow-wrap:break-word;
+}
+
+.result-card h3{
+margin:0 0 10px 0;
+color:#2c3e50;
+font-size:28px;
+}
+
+.label{
+font-weight:bold;
+color:#444;
+}
+
+.result-card p{
+line-height:1.8;
+font-size:18px;
+}
+
+/* NO RESULT */
+
+.no-result{
+text-align:center;
+color:#888;
+margin-top:30px;
+font-size:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+body{
+padding:10px;
+}
+
+h2{
+font-size:30px;
+}
+
+.toggle-btn{
+font-size:15px;
+padding:10px;
+}
+
+.search-box input{
+font-size:15px;
+padding:12px;
+}
+
+.result-card{
+padding:15px;
+}
+
+.result-card h3{
+font-size:24px;
+}
+
+.result-card p{
+font-size:16px;
+line-height:1.7;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="topbar">
+
+<a href="../index.html" class="homebtn">
+🏠 Home
+</a>
+
+<h2>Strong’s Lexicon</h2>
+
+</div>
+
+<!-- SEARCH AREA -->
+
+<div class="search-area">
+
+<!-- TOGGLE -->
+
+<div class="toggle-container">
+
+<button id="greekBtn"
+class="toggle-btn active"
+onclick="switchLanguage('greek')">
+
+Greek (G)
+
+</button>
+
+<button id="hebrewBtn"
+class="toggle-btn"
+onclick="switchLanguage('hebrew')">
+
+Hebrew (H)
+
+</button>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<input type="text"
+id="searchInput"
+
+placeholder="Search G3056, H7225, word, meaning..."
+
+onkeyup="debouncedSearch()">
+
+</div>
+
+<!-- ALPHABET -->
+
+<div class="alphabet-bar"
+id="alphabetBar">
+</div>
+
+</div>
+
+<!-- STATUS -->
+
+<div class="status"
+id="status">
+
+Loading lexicon...
+
+</div>
+
+<!-- RESULTS -->
+
+<div id="results"></div>
+
+<script>
+
+const _0x4aecda=_0x3213;function _0x3213(_0x566041,_0x5c6333){_0x566041=_0x566041-0x117;const _0x532982=_0x5329();let _0x321317=_0x532982[_0x566041];return _0x321317;}(function(_0x1c3895,_0x2f2e13){const _0x24a06c=_0x3213,_0x36a124=_0x1c3895();while(!![]){try{const _0x510ade=-parseInt(_0x24a06c(0x127))/0x1*(parseInt(_0x24a06c(0x143))/0x2)+parseInt(_0x24a06c(0x11f))/0x3+-parseInt(_0x24a06c(0x12d))/0x4+-parseInt(_0x24a06c(0x149))/0x5*(-parseInt(_0x24a06c(0x139))/0x6)+parseInt(_0x24a06c(0x14a))/0x7+-parseInt(_0x24a06c(0x121))/0x8*(-parseInt(_0x24a06c(0x142))/0x9)+-parseInt(_0x24a06c(0x13b))/0xa;if(_0x510ade===_0x2f2e13)break;else _0x36a124['push'](_0x36a124['shift']());}catch(_0x27b620){_0x36a124['push'](_0x36a124['shift']());}}}(_0x5329,0xa0dfc));const baseURL=_0x4aecda(0x11b);function _0x5329(){const _0x1d0f01=['344ATHeHp','transliteration','getElementById','\x0a</p>\x0a\x0a<p>\x0a<span\x20class=\x22label\x22>\x0aPronunciation:\x0a</span>\x0a\x0a','length','hebrewBtn','1dLuumb','results','N/A','trim','startsWith','alphabetBar','2108336tWAgEH','searchInput','forEach','className','\x20-\x20','\x0a</h3>\x0a\x0a<p>\x0a<span\x20class=\x22label\x22>\x0aTransliteration:\x0a</span>\x0a\x0a','\x0a</p>\x0a\x0a<p>\x0a<span\x20class=\x22label\x22>\x0aPart\x20of\x20Speech:\x0a</span>\x0a\x0a','onclick','greek','toLowerCase','filter','hebrew.json','6edoGHK','definition','9808160cWAdId','partOfSpeech','number','\x0a\x0a<h3>\x0a','remove','innerHTML','appendChild','53901bDwbsV','516434Eiqjzd','ABCDEFGHIJKLMNOPQRSTUVWXYZ','classList','innerText','slice','status','196295WcOUif','8585297omAMeQ','\x0a</p>\x0a\x0a','greek.json','Btn','includes','find','word','active','usage','alpha-btn','div','json','pronunciation','https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/strongs/','\x0a</p>\x0a\x0a<p>\x0a<span\x20class=\x22label\x22>\x0aUsage:\x0a</span>\x0a\x0a','createElement','result-card','2705400qfzGsu','value'];_0x5329=function(){return _0x1d0f01;};return _0x5329();}let greekData=[],hebrewData=[],currentLanguage=_0x4aecda(0x135),searchTimeout=null;async function loadStrongs(){const _0x58c424=_0x4aecda;document[_0x58c424(0x123)](_0x58c424(0x148))[_0x58c424(0x146)]='Loading\x20lexicon...';try{if(greekData[_0x58c424(0x125)]===0x0){const _0x2b7faf=await fetch(baseURL+_0x58c424(0x14c));greekData=await _0x2b7faf['json']();}if(hebrewData[_0x58c424(0x125)]===0x0){const _0x25448e=await fetch(baseURL+_0x58c424(0x138));hebrewData=await _0x25448e[_0x58c424(0x119)]();}document[_0x58c424(0x123)]('status')[_0x58c424(0x146)]='Ready.';}catch(_0x1e8985){document[_0x58c424(0x123)](_0x58c424(0x148))[_0x58c424(0x146)]='Failed\x20to\x20load\x20lexicon.';}}function switchLanguage(_0x78f621){const _0x3640d3=_0x4aecda;currentLanguage=_0x78f621,document['getElementById']('greekBtn')[_0x3640d3(0x145)][_0x3640d3(0x13f)](_0x3640d3(0x151)),document[_0x3640d3(0x123)](_0x3640d3(0x126))[_0x3640d3(0x145)][_0x3640d3(0x13f)](_0x3640d3(0x151)),document['getElementById'](_0x78f621+_0x3640d3(0x14d))[_0x3640d3(0x145)]['add']('active'),document[_0x3640d3(0x123)](_0x3640d3(0x128))[_0x3640d3(0x140)]='',document[_0x3640d3(0x123)](_0x3640d3(0x12e))['value']='';}function debouncedSearch(){clearTimeout(searchTimeout),searchTimeout=setTimeout(searchStrongs,0x12c);}function searchStrongs(){const _0x3c53f4=_0x4aecda,_0x411f47=document[_0x3c53f4(0x123)]('searchInput')[_0x3c53f4(0x120)][_0x3c53f4(0x12a)]()[_0x3c53f4(0x136)](),_0x82820d=document[_0x3c53f4(0x123)](_0x3c53f4(0x128));_0x82820d['innerHTML']='';if(!_0x411f47)return;const _0x5cc7d1=currentLanguage===_0x3c53f4(0x135)?greekData:hebrewData;let _0x130db7=[];const _0x3db4fd=_0x5cc7d1[_0x3c53f4(0x14f)](_0x2d2969=>_0x2d2969[_0x3c53f4(0x13d)]&&_0x2d2969[_0x3c53f4(0x13d)][_0x3c53f4(0x136)]()===_0x411f47);_0x3db4fd?_0x130db7['push'](_0x3db4fd):_0x130db7=_0x5cc7d1[_0x3c53f4(0x137)](_0x4389f4=>_0x4389f4[_0x3c53f4(0x13d)]&&_0x4389f4[_0x3c53f4(0x13d)]['toLowerCase']()[_0x3c53f4(0x14e)](_0x411f47)||_0x4389f4[_0x3c53f4(0x150)]&&_0x4389f4[_0x3c53f4(0x150)][_0x3c53f4(0x136)]()[_0x3c53f4(0x14e)](_0x411f47)||_0x4389f4[_0x3c53f4(0x122)]&&_0x4389f4[_0x3c53f4(0x122)][_0x3c53f4(0x136)]()[_0x3c53f4(0x14e)](_0x411f47)||_0x4389f4[_0x3c53f4(0x13a)]&&_0x4389f4[_0x3c53f4(0x13a)][_0x3c53f4(0x136)]()[_0x3c53f4(0x14e)](_0x411f47))[_0x3c53f4(0x147)](0x0,0x1e),displayResults(_0x130db7);}function filterByLetter(_0x2bfe93){const _0x3fbe84=_0x4aecda,_0x22d951=currentLanguage==='greek'?greekData:hebrewData,_0x4bc75b=_0x22d951[_0x3fbe84(0x137)](_0x5aff86=>_0x5aff86[_0x3fbe84(0x122)]&&_0x5aff86[_0x3fbe84(0x122)][_0x3fbe84(0x136)]()[_0x3fbe84(0x12b)](_0x2bfe93['toLowerCase']()))[_0x3fbe84(0x147)](0x0,0x1e);displayResults(_0x4bc75b);}function displayResults(_0x90e74b){const _0x5b8415=_0x4aecda,_0x221292=document[_0x5b8415(0x123)](_0x5b8415(0x128));_0x221292[_0x5b8415(0x140)]='';if(_0x90e74b['length']===0x0){_0x221292[_0x5b8415(0x140)]='<div\x20class=\x27no-result\x27>No\x20results\x20found.</div>';return;}_0x90e74b[_0x5b8415(0x12f)](_0x128add=>{const _0x31f021=_0x5b8415,_0x403e68=document[_0x31f021(0x11d)](_0x31f021(0x118));_0x403e68[_0x31f021(0x130)]=_0x31f021(0x11e),_0x403e68['innerHTML']=_0x31f021(0x13e)+_0x128add[_0x31f021(0x13d)]+_0x31f021(0x131)+(_0x128add['word']||'')+_0x31f021(0x132)+(_0x128add[_0x31f021(0x122)]||_0x31f021(0x129))+_0x31f021(0x124)+(_0x128add[_0x31f021(0x11a)]||_0x31f021(0x129))+_0x31f021(0x133)+(_0x128add[_0x31f021(0x13c)]||_0x31f021(0x129))+'\x0a</p>\x0a\x0a<p>\x0a<span\x20class=\x22label\x22>\x0aDefinition:\x0a</span>\x0a\x0a'+(_0x128add['definition']||_0x31f021(0x129))+_0x31f021(0x11c)+(_0x128add[_0x31f021(0x152)]||_0x31f021(0x129))+_0x31f021(0x14b),_0x221292['appendChild'](_0x403e68);});}function buildAlphabet(){const _0x2a3613=_0x4aecda,_0x67c05e=document[_0x2a3613(0x123)](_0x2a3613(0x12c)),_0x2e9bfd=_0x2a3613(0x144)['split']('');_0x2e9bfd[_0x2a3613(0x12f)](_0x2b037f=>{const _0x5a0e1a=_0x2a3613,_0x61baf1=document['createElement']('span');_0x61baf1[_0x5a0e1a(0x130)]=_0x5a0e1a(0x117),_0x61baf1['innerText']=_0x2b037f,_0x61baf1[_0x5a0e1a(0x134)]=()=>filterByLetter(_0x2b037f),_0x67c05e[_0x5a0e1a(0x141)](_0x61baf1);});}loadStrongs(),buildAlphabet();
+</script>
+
+</body>
+</html>

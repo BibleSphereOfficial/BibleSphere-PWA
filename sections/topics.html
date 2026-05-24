@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+
+<title>Nave's Topical Dictionary - BibleSphere</title>
+
+<link rel="manifest" href="../manifest.json">
+
+<meta name="theme-color" content="#b08d57">
+
+<style>
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f6fb;
+padding:15px;
+margin:0;
+font-size:18px;
+color:#2c3e50;
+}
+
+/* HEADER */
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:18px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.homebtn{
+text-decoration:none;
+background:#b08d57;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+font-size:15px;
+font-weight:bold;
+box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+h2{
+margin:0;
+font-size:38px;
+text-align:center;
+flex:1;
+font-weight:700;
+}
+
+/* SEARCH AREA */
+
+.search-area{
+position:sticky;
+top:0;
+z-index:50;
+background:#f4f6fb;
+padding-bottom:10px;
+}
+
+/* SEARCH */
+
+.search-box{
+margin-bottom:15px;
+}
+
+.search-box input{
+width:100%;
+padding:14px;
+font-size:18px;
+border-radius:10px;
+border:1px solid #ccc;
+box-shadow:0 2px 5px rgba(0,0,0,0.08);
+}
+
+/* ALPHABET */
+
+.alphabet-bar{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+justify-content:center;
+margin-bottom:15px;
+}
+
+.alpha-btn{
+background:#e3e8ff;
+padding:7px 10px;
+border-radius:7px;
+cursor:pointer;
+font-size:14px;
+transition:0.2s;
+}
+
+.alpha-btn:hover{
+background:#cfd7ff;
+}
+
+/* STATUS */
+
+.status{
+font-weight:bold;
+margin-bottom:12px;
+color:#555;
+font-size:15px;
+}
+
+/* RESULTS */
+
+.result-card{
+background:white;
+padding:20px;
+border-radius:14px;
+margin-bottom:18px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+max-width:1100px;
+margin-left:auto;
+margin-right:auto;
+overflow-wrap:break-word;
+}
+
+.result-card h3{
+margin:0 0 15px 0;
+color:#2c3e50;
+font-size:30px;
+}
+
+/* REFERENCES */
+
+.reference-container{
+display:flex;
+flex-wrap:wrap;
+}
+
+.reference-chip{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+background:#e3f2fd;
+color:#1565c0;
+padding:12px 16px;
+margin:6px 6px 6px 0;
+border-radius:25px;
+font-size:18px;
+font-weight:500;
+cursor:pointer;
+transition:0.2s;
+min-height:44px;
+line-height:1.4;
+}
+
+.reference-chip:hover{
+background:#bbdefb;
+}
+
+.topic-text{
+margin:10px 0;
+font-weight:500;
+line-height:1.7;
+}
+
+/* EMPTY */
+
+.no-result{
+text-align:center;
+color:#888;
+margin-top:30px;
+font-size:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+body{
+padding:10px;
+font-size:16px;
+}
+
+h2{
+font-size:30px;
+}
+
+.search-box input{
+font-size:16px;
+padding:12px;
+}
+
+.result-card{
+padding:16px;
+}
+
+.result-card h3{
+font-size:25px;
+}
+
+.reference-chip{
+font-size:15px;
+padding:10px 14px;
+}
+
+.topic-text{
+font-size:15px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="topbar">
+
+<a href="../index.html"
+class="homebtn">
+
+🏠 Home
+
+</a>
+
+<h2>Nave’s Topical Dictionary</h2>
+
+</div>
+
+<!-- SEARCH AREA -->
+
+<div class="search-area">
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<input type="text"
+id="searchInput"
+
+placeholder="Search topic (e.g., AARON, FAITH, LOVE)"
+
+onkeyup="searchTopic()">
+
+</div>
+
+<!-- ALPHABET -->
+
+<div class="alphabet-bar"
+id="alphabetBar">
+
+</div>
+
+</div>
+
+<!-- STATUS -->
+
+<div class="status"
+id="status">
+
+Loading topics...
+
+</div>
+
+<!-- RESULTS -->
+
+<div id="results"></div>
+
+<script>
+
+const _0x59ef20=_0x8cc9;function _0x8cc9(_0xe4db4c,_0x202ec8){_0xe4db4c=_0xe4db4c-0x13c;const _0x4b1d43=_0x4b1d();let _0x8cc9ab=_0x4b1d43[_0xe4db4c];return _0x8cc9ab;}(function(_0x47127d,_0x4040a5){const _0xf214bc=_0x8cc9,_0x55ea66=_0x47127d();while(!![]){try{const _0x17985f=parseInt(_0xf214bc(0x15a))/0x1+-parseInt(_0xf214bc(0x13d))/0x2*(-parseInt(_0xf214bc(0x16b))/0x3)+parseInt(_0xf214bc(0x158))/0x4+-parseInt(_0xf214bc(0x16c))/0x5+-parseInt(_0xf214bc(0x146))/0x6*(parseInt(_0xf214bc(0x155))/0x7)+parseInt(_0xf214bc(0x15c))/0x8+-parseInt(_0xf214bc(0x148))/0x9;if(_0x17985f===_0x4040a5)break;else _0x55ea66['push'](_0x55ea66['shift']());}catch(_0x56fde6){_0x55ea66['push'](_0x55ea66['shift']());}}}(_0x4b1d,0xaf4ac));let topicsData=[];const baseURL=_0x59ef20(0x154);async function loadTopics(){const _0x1745a5=_0x59ef20;try{const _0x18ceed=await fetch(baseURL);topicsData=await _0x18ceed[_0x1745a5(0x164)](),document[_0x1745a5(0x143)](_0x1745a5(0x151))[_0x1745a5(0x157)]=_0x1745a5(0x161);}catch(_0x41c143){document[_0x1745a5(0x143)](_0x1745a5(0x151))[_0x1745a5(0x157)]='Failed\x20to\x20load\x20topics.';}}function searchTopic(){const _0x22fa53=_0x59ef20,_0x105dab=document['getElementById'](_0x22fa53(0x14f))[_0x22fa53(0x152)][_0x22fa53(0x156)]()[_0x22fa53(0x165)](),_0x5810cd=document[_0x22fa53(0x143)]('results');_0x5810cd[_0x22fa53(0x14c)]='';if(!_0x105dab)return;const _0x45ba63=topicsData[_0x22fa53(0x16a)](_0x3c300a=>_0x3c300a[_0x22fa53(0x160)]['toLowerCase']()[_0x22fa53(0x149)](_0x105dab));renderResults(_0x45ba63);}function filterByLetter(_0x34c3ba){const _0x29e069=_0x59ef20,_0x4aa575=topicsData[_0x29e069(0x16a)](_0x2b7fd0=>_0x2b7fd0[_0x29e069(0x160)]['toLowerCase']()[_0x29e069(0x147)](_0x34c3ba[_0x29e069(0x165)]()));renderResults(_0x4aa575);}function _0x4b1d(){const _0x5b74f8=['setItem','createElement','getElementById','div','span','498CgxQyx','startsWith','23511456DGamuC','includes','onclick','location','innerHTML','<div\x20class=\x27no-result\x27>No\x20results\x20found.</div>','appendChild','searchInput','forEach','status','value','\x0a\x0a</div>\x0a\x0a','https://cdn.jsdelivr.net/gh/tonalthomas38-collab/BibleSphere-Data@main/topics/naves.json','11900cFWPFI','trim','innerText','3293312TaycLC','\x0a\x0a</span>\x0a\x0a','533133syDQNa','\x0a\x0a<span\x20class=\x22reference-chip\x22\x0a\x0aonclick=\x22openReference(\x0a\x27','10794672pzpIbm','replace','className','topics','subject','Loaded\x20successfully.','alphabetBar','bible.html','json','toLowerCase','results','length','\x27\x0a)\x22>\x0a\x0a','slice','filter','12xxspSu','1833155HcaFyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ','566158NRiUep','split','\x0a\x0a<h3>\x0a\x0a','test'];_0x4b1d=function(){return _0x5b74f8;};return _0x4b1d();}function renderResults(_0x394c53){const _0x520bcc=_0x59ef20,_0x4ba726=document[_0x520bcc(0x143)](_0x520bcc(0x166));_0x4ba726[_0x520bcc(0x14c)]='';if(_0x394c53[_0x520bcc(0x167)]===0x0){_0x4ba726['innerHTML']=_0x520bcc(0x14d);return;}_0x394c53[_0x520bcc(0x169)](0x0,0x1e)[_0x520bcc(0x150)](_0x3e7dc3=>{const _0x338daf=_0x520bcc,_0x2e62ca=document[_0x338daf(0x142)](_0x338daf(0x144));_0x2e62ca[_0x338daf(0x15e)]='result-card';let _0x39c6d3='';_0x3e7dc3[_0x338daf(0x15f)][_0x338daf(0x150)](_0x5a792b=>{const _0x5e3eb8=_0x338daf,_0x567d62=_0x5a792b['split'](';');_0x567d62[_0x5e3eb8(0x150)](_0x4b7634=>{const _0x3fe0b7=_0x5e3eb8,_0x42f79e=_0x4b7634[_0x3fe0b7(0x156)](),_0x5643ff=/([1-3]?[A-Z]+)\s\d+:\d+/[_0x3fe0b7(0x140)](_0x42f79e);_0x5643ff?_0x39c6d3+=_0x3fe0b7(0x15b)+_0x42f79e[_0x3fe0b7(0x15d)](/'/g,'\x5c\x27')+_0x3fe0b7(0x168)+_0x42f79e+_0x3fe0b7(0x159):_0x39c6d3+='\x0a\x0a<div\x20class=\x22topic-text\x22>\x0a\x0a'+_0x42f79e+_0x3fe0b7(0x153);});}),_0x2e62ca[_0x338daf(0x14c)]=_0x338daf(0x13f)+_0x3e7dc3[_0x338daf(0x160)]+'\x0a\x0a</h3>\x0a\x0a<div>\x0a\x0a'+_0x39c6d3+_0x338daf(0x153),_0x4ba726['appendChild'](_0x2e62ca);});}function openReference(_0x3ef522){const _0x5d74c3=_0x59ef20,_0x1e215e=_0x3ef522['match'](/([1-3]?[A-Z]+)\s(\d+):(\d+)(?:-(\d+))?/);if(!_0x1e215e)return;const _0x2e7a9a=_0x1e215e[0x1],_0x51235b=_0x1e215e[0x2],_0x4c3cb7=_0x1e215e[0x3],_0x509cea=_0x1e215e[0x4]||null;localStorage[_0x5d74c3(0x141)]('bibleRef',JSON['stringify']({'book':_0x2e7a9a,'chapter':_0x51235b,'verseStart':_0x4c3cb7,'verseEnd':_0x509cea})),window[_0x5d74c3(0x14b)]['href']=_0x5d74c3(0x163);}function buildAlphabet(){const _0xe9ce1d=_0x59ef20,_0x3b279b=document[_0xe9ce1d(0x143)](_0xe9ce1d(0x162)),_0x25cc78=_0xe9ce1d(0x13c)[_0xe9ce1d(0x13e)]('');_0x25cc78[_0xe9ce1d(0x150)](_0x4b2c5f=>{const _0x189af1=_0xe9ce1d,_0x12d73e=document[_0x189af1(0x142)](_0x189af1(0x145));_0x12d73e[_0x189af1(0x15e)]='alpha-btn',_0x12d73e[_0x189af1(0x157)]=_0x4b2c5f,_0x12d73e[_0x189af1(0x14a)]=()=>filterByLetter(_0x4b2c5f),_0x3b279b[_0x189af1(0x14e)](_0x12d73e);});}loadTopics(),buildAlphabet();
+</script>
+
+</body>
+</html>
